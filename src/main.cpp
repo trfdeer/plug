@@ -18,12 +18,16 @@ void setup() {
   pinMode(RELAY2, OUTPUT);
   pinMode(RELAY3, OUTPUT);
 
+  digitalWrite(RELAY1, LOW);
+  digitalWrite(RELAY2, LOW);
+  digitalWrite(RELAY3, LOW);
+
   WiFi.mode(WIFI_AP);
   WiFi.softAPConfig(ip, ip, mask);
-  WiFi.softAP("Plug WiFi");
+  WiFi.encryptionType(AUTH_WPA2_PSK);
+  WiFi.softAP("Plug WiFi", "rx6900xt");
 
   dnsServer.start(53, "*", ip);
-  digitalWrite(LED_BUILTIN, HIGH);
 
   webServer.on("/", routes::home);
   webServer.on("/on", routes::plug_on);
@@ -31,6 +35,9 @@ void setup() {
   webServer.on("/toggle", routes::plug_toggle);
   webServer.on("/status", routes::plug_status);
   webServer.onNotFound(routes::not_found);
+
+  webServer.begin(80);
+  digitalWrite(LED_BUILTIN, LOW);
 }
 
 void loop() {

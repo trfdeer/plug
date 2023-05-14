@@ -5,9 +5,9 @@
 
 #include <cctype>
 
-#define RELAY1 D4
-#define RELAY2 D2
-#define RELAY3 D1
+#define RELAY1 D5
+#define RELAY2 D6
+#define RELAY3 D7
 
 inline uint8_t id_to_pin(int id) {
   if (id == 1)
